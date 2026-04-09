@@ -15,6 +15,8 @@ import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { Profile } from './pages/Profile';
+import { CustomerSupport } from './pages/CustomerSupport';
+import { Events } from './pages/Events';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -30,6 +32,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 export const router = createBrowserRouter([
   { path: '/', element: <Layout><Home /></Layout> },
   { path: '/books', element: <Layout><Books /></Layout> },
+  { path: '/customer-support', element: <Layout><CustomerSupport /></Layout> },
+  { path: '/events', element: <Layout><Events /></Layout> },
   { path: '/book/:id', element: <Layout><BookDetail /></Layout> },
   { path: '/cart', element: <Layout><Cart /></Layout> },
   {

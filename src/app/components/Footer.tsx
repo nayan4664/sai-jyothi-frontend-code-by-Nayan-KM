@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import logoUrl from '../assets/sjp-logo-latest.jpeg';
 
 export const Footer: React.FC = () => {
   const { t, categoryLabel } = useLanguage();
@@ -32,10 +33,10 @@ export const Footer: React.FC = () => {
       <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2">
-              <img src="/sjp-logo.svg" alt="SJP logo" className="h-6 w-6 rounded-full object-cover" />
+            <Link to="/" className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:border-cyan-300/40 hover:bg-white/10">
+              <img src={logoUrl} alt="SJP logo" className="h-6 w-6 rounded-full object-cover" />
               <span className="font-semibold text-white">Sai Jyothi {t('navbar.publication')}</span>
-            </div>
+            </Link>
             <p className="text-sm leading-relaxed text-slate-300">
               {t('footer.about')}
             </p>
@@ -104,6 +105,12 @@ export const Footer: React.FC = () => {
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">{t('footer.customerService')}</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
+                <Link to="/customer-support" className="transition hover:text-cyan-200">Customer Support</Link>
+              </li>
+              <li>
+                <Link to="/events" className="transition hover:text-cyan-200">Events</Link>
+              </li>
+              <li>
                 <Link to="/about" className="transition hover:text-cyan-200">{t('footer.aboutUs')}</Link>
               </li>
               <li>
@@ -137,7 +144,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center rounded-xl border border-white/10 bg-white/5 p-3">
                 <Phone className="mr-2 h-4 w-4 flex-shrink-0 text-cyan-300" />
-                <a href="tel:7038890264" className="transition hover:text-cyan-200">+91 70388 90264</a>
+                <a href="tel:9923693506" className="transition hover:text-cyan-200">+91 9923693506</a>
               </li>
               <li className="flex items-center rounded-xl border border-white/10 bg-white/5 p-3">
                 <Mail className="mr-2 h-4 w-4 flex-shrink-0 text-cyan-300" />

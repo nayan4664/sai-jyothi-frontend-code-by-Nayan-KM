@@ -8,6 +8,8 @@ const translations = {
       admin: 'Admin',
       home: 'Home',
       books: 'Books',
+      customerSupport: 'Customer Support',
+      events: 'Events',
       orders: 'Orders',
       login: 'Login',
       logout: 'Logout',
@@ -66,6 +68,9 @@ const translations = {
       Business: 'Business',
       Spirituality: 'Spirituality',
       Comics: 'Comics',
+      College: 'College',
+      School: 'School',
+      Competitive: 'Competitive',
     },
     orderStatus: {
       PLACED: 'PLACED',

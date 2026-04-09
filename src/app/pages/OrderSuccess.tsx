@@ -241,8 +241,8 @@ export const OrderSuccess: React.FC = () => {
               support@saijyothi.com
             </a>{' '}
             |{' '}
-            <a href="tel:+919876543210" className="text-blue-600 hover:underline">
-              +91 98765 43210
+            <a href="tel:+919923693506" className="text-blue-600 hover:underline">
+              +91 9923693506
             </a>
           </p>
         </div>

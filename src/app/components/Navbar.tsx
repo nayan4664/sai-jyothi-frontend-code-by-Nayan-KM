@@ -5,9 +5,11 @@ import { useTheme } from 'next-themes';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import logoUrl from '../assets/sjp-logo-latest.jpeg';
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDesktopSearchOpen, setIsDesktopSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [mounted, setMounted] = useState(false);
   const { cartCount } = useCart();
@@ -27,6 +29,7 @@ export const Navbar: React.FC = () => {
       navigate(`/books?search=${encodeURIComponent(searchQuery)}`);
       setSearchQuery('');
       setIsMenuOpen(false);
+      setIsDesktopSearchOpen(false);
     }
   };
 
@@ -45,6 +48,8 @@ export const Navbar: React.FC = () => {
 
   const currentTheme = mounted ? theme : 'light';
   const isDark = currentTheme === 'dark';
+  const customerSupportLabel = language === 'hi' ? 'Customer Support' : t('navbar.customerSupport');
+  const eventsLabel = language === 'hi' ? 'Events' : t('navbar.events');
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/20 bg-white/35 backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-950/45">
@@ -53,10 +58,10 @@ export const Navbar: React.FC = () => {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-18 items-center justify-between">
+        <div className="flex min-h-[72px] items-center justify-between gap-3 py-3">
           <Link to="/" className="group flex items-center gap-3" onClick={() => handleNavLinkClick('/')}>
             <span className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-white/40 shadow-lg shadow-cyan-500/20 backdrop-blur dark:border-slate-700 dark:bg-slate-900/60">
-              <img src="/sjp-logo.svg" alt="SJP logo" className="h-full w-full object-cover" />
+              <img src={logoUrl} alt="SJP logo" className="h-full w-full object-cover" />
             </span>
             <div className="leading-tight">
               <p className="text-base font-bold text-slate-900 transition group-hover:text-cyan-700 dark:text-white dark:group-hover:text-cyan-300">
@@ -68,42 +73,38 @@ export const Navbar: React.FC = () => {
             </div>
           </Link>
 
-          <form onSubmit={handleSearch} className="mx-8 hidden max-w-lg flex-1 md:block">
-            <div className="relative">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={t('navbar.searchPlaceholder')}
-                className="w-full rounded-full border border-white/55 bg-white/65 py-2.5 pl-5 pr-12 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-400/35 dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-100 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
-              />
-              <button
-                type="submit"
-                aria-label={t('navbar.searchAria')}
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full border border-cyan-400/40 bg-cyan-500 p-2 text-slate-950 transition hover:bg-cyan-400"
-              >
-                <Search className="h-4 w-4" />
-              </button>
-            </div>
-          </form>
-
-          <div className="hidden items-center gap-2 md:flex">
-            <Link to="/" className="rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/')}>
+          <div className="hidden flex-1 items-center justify-end gap-1 lg:gap-2 md:flex">
+            <Link to="/" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/')}>
               {t('navbar.home')}
             </Link>
-            <Link to="/books" className="rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/books')}>
+            <Link to="/books" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/books')}>
               {t('navbar.books')}
             </Link>
+            <Link to="/customer-support" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/customer-support')}>
+              {customerSupportLabel}
+            </Link>
+            <Link to="/events" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/events')}>
+              {eventsLabel}
+            </Link>
             {user?.role === 'ROLE_ADMIN' && (
-              <Link to="/admin" className="rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/admin')}>
+              <Link to="/admin" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/admin')}>
                 {t('navbar.admin')}
               </Link>
             )}
             {user && (
-              <Link to="/orders" className="rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/orders')}>
+              <Link to="/orders" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/orders')}>
                 {t('navbar.orders')}
               </Link>
             )}
+
+            <button
+              type="button"
+              onClick={() => setIsDesktopSearchOpen((current) => !current)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-400"
+              aria-label={t('navbar.searchAria')}
+            >
+              <Search className="h-4 w-4" />
+            </button>
 
             <div className="inline-flex items-center rounded-full border border-white/45 bg-white/45 p-1 backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
               <button
@@ -145,9 +146,9 @@ export const Navbar: React.FC = () => {
                 <Link
                   to="/profile"
                   onClick={() => handleNavLinkClick('/profile')}
-                  className="rounded-full border border-cyan-300/40 bg-cyan-100/80 px-3 py-1.5 text-sm font-medium text-cyan-800 transition hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-400/40 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:bg-cyan-500/15"
+                  className="max-w-[120px] rounded-full border border-cyan-300/40 bg-cyan-100/80 px-3 py-1.5 text-sm font-medium text-cyan-800 transition hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-400/40 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:bg-cyan-500/15 lg:max-w-[140px]"
                 >
-                  {t('navbar.hiUser')}, {user.name}
+                  <span className="block truncate">{t('navbar.hiUser')}, {user.name}</span>
                 </Link>
                 <button
                   onClick={handleLogout}
@@ -196,6 +197,29 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {isDesktopSearchOpen && (
+          <div className="hidden border-t border-white/10 pb-3 pt-1 md:block">
+            <form onSubmit={handleSearch} className="mx-auto w-full max-w-2xl">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t('navbar.searchPlaceholder')}
+                  className="w-full rounded-full border border-white/55 bg-white/65 py-2.5 pl-5 pr-12 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-400/35 dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-100 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
+                />
+                <button
+                  type="submit"
+                  aria-label={t('navbar.searchAria')}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full border border-cyan-400/40 bg-cyan-500 p-2 text-slate-950 transition hover:bg-cyan-400"
+                >
+                  <Search className="h-4 w-4" />
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
 
         {isMenuOpen && (
           <div className="mt-1 rounded-2xl border border-white/35 bg-white/45 p-4 backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/70 md:hidden">
@@ -253,6 +277,12 @@ export const Navbar: React.FC = () => {
               </Link>
               <Link to="/books" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/books')}>
                 {t('navbar.books')}
+              </Link>
+              <Link to="/customer-support" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/customer-support')}>
+                {customerSupportLabel}
+              </Link>
+              <Link to="/events" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/events')}>
+                {eventsLabel}
               </Link>
               {user?.role === 'ROLE_ADMIN' && (
                 <Link to="/admin" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/admin')}>
