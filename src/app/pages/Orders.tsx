@@ -20,8 +20,8 @@ export const Orders: React.FC = () => {
           loading: 'आपके ऑर्डर लोड हो रहे हैं...',
           loadError: 'आपके ऑर्डर लोड नहीं हो सके।',
           empty: 'अभी तक कोई ऑर्डर नहीं',
-          emptyText: 'पहले चेकआउट के बाद आपका ऑर्डर इतिहास यहां दिखेगा।',
-          track: 'अपनी हाल की खरीद और डिलीवरी की जानकारी एक ही जगह ट्रैक करें।',
+          emptyText: 'पहले चेकआउट के बाद आपका ऑर्डर इतिहास यहाँ दिखाई देगा।',
+          track: 'अपनी हाल की खरीद, डिस्पैच पता और डिलीवरी प्रोग्रेस एक ही जगह ट्रैक करें।',
           orderedOn: 'ऑर्डर किया गया',
           qty: 'मात्रा',
           deliveryDetails: 'डिलीवरी विवरण',
@@ -33,7 +33,7 @@ export const Orders: React.FC = () => {
           loadError: 'Could not load your orders.',
           empty: 'No orders yet',
           emptyText: 'Your order history will appear here after your first checkout.',
-          track: 'Track your recent purchases and delivery details in one place.',
+          track: 'Track your recent purchases, dispatch address, and delivery progress in one place.',
           orderedOn: 'Ordered on',
           qty: 'Qty',
           deliveryDetails: 'Delivery Details',
@@ -80,8 +80,8 @@ export const Orders: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">{copy.title}</h1>
-          <div className="bg-white rounded-2xl shadow-md p-6 text-gray-600">{copy.loading}</div>
+          <h1 className="mb-8 text-4xl font-bold text-gray-900">{copy.title}</h1>
+          <div className="rounded-2xl bg-white p-6 text-gray-600 shadow-md">{copy.loading}</div>
         </div>
       </div>
     );
@@ -91,8 +91,8 @@ export const Orders: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">{copy.title}</h1>
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-red-700">{error}</div>
+          <h1 className="mb-8 text-4xl font-bold text-gray-900">{copy.title}</h1>
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-red-700">{error}</div>
         </div>
       </div>
     );
@@ -101,15 +101,15 @@ export const Orders: React.FC = () => {
   if (orders.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex h-24 w-24 items-center justify-center rounded-full bg-blue-100 text-blue-600 mb-6">
+        <div className="max-w-4xl mx-auto px-4 text-center sm:px-6 lg:px-8">
+          <div className="mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full bg-blue-100 text-blue-600">
             <ShoppingBag className="h-12 w-12" />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">{copy.empty}</h1>
-          <p className="text-lg text-gray-600 mb-8">{copy.emptyText}</p>
+          <h1 className="mb-3 text-4xl font-bold text-gray-900">{copy.empty}</h1>
+          <p className="mb-8 text-lg text-gray-600">{copy.emptyText}</p>
           <Link
             to="/books"
-            className="inline-flex items-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 transition"
+            className="inline-flex items-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700"
           >
             {t('common.browseBooks')}
           </Link>
@@ -128,7 +128,7 @@ export const Orders: React.FC = () => {
           </div>
           <Link
             to="/books"
-            className="rounded-xl border border-blue-200 bg-white px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50 transition"
+            className="rounded-xl border border-blue-200 bg-white px-5 py-3 font-semibold text-blue-700 transition hover:bg-blue-50"
           >
             {t('common.continueShopping')}
           </Link>
@@ -137,11 +137,16 @@ export const Orders: React.FC = () => {
         <div className="space-y-6">
           {orders.map((order) => (
             <article key={order.id ?? order.orderId} className="overflow-hidden rounded-2xl bg-white shadow-md">
-              <div className="border-b border-gray-100 bg-slate-50 px-6 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-col gap-3 border-b border-gray-100 bg-slate-50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">{order.orderId}</p>
                   <p className="text-sm text-gray-600">
-                    {copy.orderedOn} {new Date(order.orderDate).toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })}
+                    {copy.orderedOn}{' '}
+                    {new Date(order.orderDate).toLocaleDateString(locale, {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}
                   </p>
                 </div>
                 <div className="flex items-center gap-4">
@@ -159,9 +164,11 @@ export const Orders: React.FC = () => {
                     {order.items.map((item) => (
                       <div key={`${order.orderId}-${item.id}`} className="flex gap-4 rounded-xl bg-gray-50 p-4">
                         <img src={item.image} alt={item.title} className="h-24 w-16 rounded object-cover" />
-                        <div className="flex-1 min-w-0">
+                        <div className="min-w-0 flex-1">
                           <h2 className="font-semibold text-gray-900">{item.title}</h2>
-                          <p className="text-sm text-gray-600">{t('common.by')} {item.author}</p>
+                          <p className="text-sm text-gray-600">
+                            {t('common.by')} {item.author}
+                          </p>
                           <p className="mt-1 text-sm text-gray-500">
                             {copy.qty}: {item.quantity} · {t('common.category')}: {categoryLabel(item.category)}
                           </p>
@@ -174,7 +181,7 @@ export const Orders: React.FC = () => {
                   </div>
 
                   <div className="rounded-xl border border-gray-200 bg-white p-4">
-                    <h3 className="font-bold text-gray-900 mb-3">{copy.deliveryDetails}</h3>
+                    <h3 className="mb-3 font-bold text-gray-900">{copy.deliveryDetails}</h3>
                     <p className="font-semibold text-gray-900">{order.customerInfo.fullName}</p>
                     <p className="text-sm text-gray-600">{order.customerInfo.email}</p>
                     <p className="text-sm text-gray-600">{order.customerInfo.phone}</p>
@@ -184,9 +191,44 @@ export const Orders: React.FC = () => {
                       {order.customerInfo.state} - {order.customerInfo.pincode}
                     </p>
                     <div className="mt-4 border-t border-gray-200 pt-4 text-sm text-gray-600">
-                      <p>{copy.paymentMethod}: <span className="font-medium text-gray-900 uppercase">{order.customerInfo.paymentMethod}</span></p>
-                      <p className="mt-1">{t('common.shipping')}: {order.shippingCost === 0 ? t('common.free') : `₹${order.shippingCost}`}</p>
+                      <p>
+                        {copy.paymentMethod}:{' '}
+                        <span className="font-medium uppercase text-gray-900">{order.customerInfo.paymentMethod}</span>
+                      </p>
+                      <p className="mt-1">
+                        {t('common.shipping')}: {order.shippingCost === 0 ? t('common.free') : `₹${order.shippingCost}`}
+                      </p>
                     </div>
+
+                    {order.tracking && (
+                      <div className="mt-4 rounded-xl bg-slate-50 p-4">
+                        <h4 className="font-semibold text-slate-900">Tracking</h4>
+                        <p className="mt-2 text-sm text-slate-600">
+                          Code: <span className="font-medium text-slate-900">{order.tracking.trackingCode}</span>
+                        </p>
+                        <p className="mt-1 text-sm text-slate-600">
+                          Status: <span className="font-medium text-slate-900">{order.tracking.currentLabel}</span>
+                        </p>
+                        <p className="mt-1 text-sm text-slate-600">{order.tracking.estimatedDeliveryText}</p>
+                        <p className="mt-3 text-sm text-slate-600">Dispatch address:</p>
+                        <p className="text-sm font-medium text-slate-900">{order.tracking.trackingAddress}</p>
+                        <div className="mt-3 space-y-2">
+                          {order.tracking.milestones.map((milestone) => (
+                            <div key={milestone.label} className="flex items-start gap-2 text-sm">
+                              <span
+                                className={`mt-1 h-2.5 w-2.5 rounded-full ${
+                                  milestone.completed ? 'bg-emerald-500' : 'bg-slate-300'
+                                }`}
+                              />
+                              <div>
+                                <p className="font-medium text-slate-900">{milestone.label}</p>
+                                <p className="text-slate-600">{milestone.description}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

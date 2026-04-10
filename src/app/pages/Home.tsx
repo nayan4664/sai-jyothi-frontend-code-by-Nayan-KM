@@ -23,11 +23,15 @@ import {
   Tag,
   Gift,
   MessageCircle,
+  Star,
+  MapPin,
 } from 'lucide-react';
 import { BookCard } from '../components/BookCard';
 import { useBooks } from '../contexts/BooksContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { contentApi } from '../lib/content-api';
 import type { Book } from '../types/book';
+import type { StoreContent } from '../types/content';
 
 const heroImages = [
   {
@@ -63,6 +67,13 @@ const categoryIconMap: Record<string, React.ComponentType<{ className?: string }
   Business: Briefcase,
   Spirituality: Flower2,
   Comics: Palette,
+};
+
+const segmentIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  'graduation-cap': GraduationCap,
+  briefcase: Briefcase,
+  'book-open': BookOpen,
+  landmark: Landmark,
 };
 
 interface BookMarqueeSectionProps {
@@ -121,6 +132,7 @@ export const Home: React.FC = () => {
   const { language, t, categoryLabel } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [storeContent, setStoreContent] = useState<StoreContent | null>(null);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const resumeAutoPlayTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -260,6 +272,29 @@ export const Home: React.FC = () => {
       }
     };
   }, [isAutoPlaying]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    const loadStoreContent = async () => {
+      try {
+        const content = await contentApi.getStoreContent();
+        if (isActive) {
+          setStoreContent(content);
+        }
+      } catch {
+        if (isActive) {
+          setStoreContent(null);
+        }
+      }
+    };
+
+    void loadStoreContent();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   const pauseAutoPlay = () => {
     setIsAutoPlaying(false);
@@ -427,6 +462,42 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {storeContent && storeContent.upcoming.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-slate-100 to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 flex items-end justify-between gap-6">
+              <div>
+                <span className="inline-flex items-center rounded-full bg-amber-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-amber-700">
+                  Upcoming
+                </span>
+                <h2 className="mt-4 text-4xl font-black text-slate-900">What’s Coming Up at Sai Jyothi</h2>
+                <p className="mt-3 max-w-2xl text-lg text-slate-600">
+                  A quick look at upcoming campaigns, reading drives, and institution-focused initiatives from Sai Jyothi Publication.
+                </p>
+              </div>
+              <Link to="/events" className="hidden md:inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-600">
+                View All Events
+              </Link>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              {storeContent.upcoming.map((item) => (
+                <article key={item.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">{item.dateLabel}</p>
+                  <h3 className="mt-3 text-2xl font-black text-slate-900">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{item.description}</p>
+                  <p className="mt-4 text-sm font-medium text-slate-700">Audience: {item.audience}</p>
+                  <Link to={item.ctaPath} className="mt-6 inline-flex items-center text-sm font-semibold text-cyan-700 transition hover:text-cyan-900">
+                    {item.ctaLabel}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="py-20 bg-gradient-to-b from-white to-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -471,6 +542,43 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {storeContent && storeContent.universitySegments.length > 0 && (
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 text-center">
+              <span className="inline-flex items-center rounded-full bg-cyan-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-700">
+                University segments
+              </span>
+              <h2 className="mt-4 text-4xl font-black text-slate-900 md:text-5xl">Collections Designed for Academic Buyers</h2>
+              <p className="mt-3 max-w-3xl mx-auto text-lg text-slate-600">
+                Dedicated segments for engineering, school, competitive, and professional readers so every visitor can reach the right shelf faster.
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {storeContent.universitySegments.map((segment) => {
+                const Icon = segmentIconMap[segment.icon] ?? BookOpen;
+
+                return (
+                  <Link key={segment.name} to={segment.ctaPath} className="group rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl">
+                    <div className="inline-flex rounded-2xl bg-slate-950 p-3 text-white">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">{segment.category}</p>
+                    <h3 className="mt-2 text-2xl font-black text-slate-900">{segment.name}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">{segment.description}</p>
+                    <span className="mt-5 inline-flex items-center text-sm font-semibold text-slate-900 group-hover:text-cyan-700">
+                      {segment.ctaLabel}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       <BookMarqueeSection
         title={copy.featuredBooks}
@@ -525,6 +633,125 @@ export const Home: React.FC = () => {
           </div>
         }
       />
+
+      {storeContent && storeContent.testimonials.length > 0 && (
+        <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 text-center">
+              <span className="inline-flex items-center rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">
+                Feedback
+              </span>
+              <h2 className="mt-4 text-4xl font-black text-white md:text-5xl">Why Readers and Institutions Trust Us</h2>
+              <p className="mt-3 max-w-3xl mx-auto text-lg text-slate-300">
+                Feedback from students, librarians, and coordinators who rely on Sai Jyothi for personal, academic, and institutional orders.
+              </p>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              {storeContent.testimonials.map((testimonial) => (
+                <article key={`${testimonial.name}-${testimonial.city}`} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
+                  <div className="flex items-center gap-1 text-amber-300">
+                    {Array.from({ length: testimonial.rating }).map((_, index) => (
+                      <Star key={`${testimonial.name}-${index}`} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="mt-4 text-base leading-relaxed text-white/90">"{testimonial.quote}"</p>
+                  <div className="mt-6 border-t border-white/10 pt-4">
+                    <p className="font-semibold text-white">{testimonial.name}</p>
+                    <p className="text-sm text-slate-300">{testimonial.role}</p>
+                    <p className="text-sm text-cyan-200">{testimonial.city}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="mt-10 text-center">
+              <Link to="/feedback" className="inline-flex items-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">
+                View All Feedback
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {storeContent && storeContent.catalogues.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-white to-cyan-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 flex items-end justify-between gap-6">
+              <div>
+                <span className="inline-flex items-center rounded-full bg-blue-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-blue-700">
+                  Catalogues
+                </span>
+                <h2 className="mt-4 text-4xl font-black text-slate-900">Browse Our Curated Catalogues</h2>
+                <p className="mt-3 max-w-2xl text-lg text-slate-600">
+                  Thoughtfully grouped catalogue previews for schools, colleges, coaching centres, libraries, and bulk buyers.
+                </p>
+              </div>
+              <Link to="/catalogues" className="hidden md:inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-600">
+                Open Catalogues
+              </Link>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              {storeContent.catalogues.map((catalogue) => (
+                <article key={catalogue.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">{catalogue.format}</p>
+                  <h3 className="mt-3 text-2xl font-black text-slate-900">{catalogue.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{catalogue.description}</p>
+                  <p className="mt-4 text-sm font-medium text-slate-700">Recommended for: {catalogue.audience}</p>
+                  <Link to={catalogue.downloadUrl} className="mt-5 inline-flex items-center text-sm font-semibold text-slate-900 transition hover:text-cyan-700">
+                    {catalogue.downloadLabel}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {storeContent && storeContent.distributors.length > 0 && (
+        <section className="py-20 bg-slate-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 flex items-end justify-between gap-6">
+              <div>
+                <span className="inline-flex items-center rounded-full bg-emerald-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+                  Nearby distributors
+                </span>
+                <h2 className="mt-4 text-4xl font-black text-slate-900">Find a Trusted Distributor Near You</h2>
+                <p className="mt-3 max-w-2xl text-lg text-slate-600">
+                  Reliable distributor support across nearby cities for local availability, institutional supply, and assisted ordering.
+                </p>
+              </div>
+              <Link to="/distributors" className="hidden md:inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600">
+                View All Distributors
+              </Link>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {storeContent.distributors.slice(0, 4).map((distributor) => (
+                <article key={`${distributor.city}-${distributor.partnerName}`} className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">{distributor.city}</p>
+                  <h3 className="mt-2 text-2xl font-black text-slate-900">{distributor.partnerName}</h3>
+                  <p className="mt-2 text-sm text-slate-600">{distributor.contactPerson}</p>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(distributor.mapQuery)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex items-start text-sm text-slate-600 transition hover:text-cyan-700"
+                  >
+                    <MapPin className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0" />
+                    <span>{distributor.address}</span>
+                  </a>
+                  <a href={`tel:${distributor.phone.replace(/\s+/g, '')}`} className="mt-3 inline-flex text-sm font-semibold text-slate-900 transition hover:text-emerald-700">
+                    {distributor.phone}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-20 bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.25),_transparent_45%),radial-gradient(circle_at_bottom_right,_rgba(236,72,153,0.3),_transparent_45%)]" />

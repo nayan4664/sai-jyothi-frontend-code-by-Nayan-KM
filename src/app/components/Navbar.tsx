@@ -48,8 +48,13 @@ export const Navbar: React.FC = () => {
 
   const currentTheme = mounted ? theme : 'light';
   const isDark = currentTheme === 'dark';
-  const customerSupportLabel = language === 'hi' ? 'Customer Support' : t('navbar.customerSupport');
-  const eventsLabel = language === 'hi' ? 'Events' : t('navbar.events');
+  const customerSupportLabel = language === 'hi' ? 'ग्राहक सहायता' : t('navbar.customerSupport');
+  const eventsLabel = language === 'hi' ? 'कार्यक्रम' : t('navbar.events');
+  const feedbackLabel = language === 'hi' ? 'प्रतिक्रिया' : 'Feedback';
+  const cataloguesLabel = language === 'hi' ? 'कैटलॉग' : 'Catalogues';
+  const distributorsLabel = language === 'hi' ? 'वितरक' : 'Distributors';
+  const englishLabel = 'English';
+  const hindiLabel = '\u0939\u093f\u0902\u0926\u0940';
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/20 bg-white/35 backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-950/45">
@@ -58,12 +63,12 @@ export const Navbar: React.FC = () => {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-[72px] items-center justify-between gap-3 py-3">
-          <Link to="/" className="group flex items-center gap-3" onClick={() => handleNavLinkClick('/')}>
+        <div className="flex min-h-[72px] items-center justify-between gap-3 py-3 xl:hidden">
+          <Link to="/" className="group flex flex-shrink-0 items-center gap-3" onClick={() => handleNavLinkClick('/')}>
             <span className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-white/40 shadow-lg shadow-cyan-500/20 backdrop-blur dark:border-slate-700 dark:bg-slate-900/60">
               <img src={logoUrl} alt="SJP logo" className="h-full w-full object-cover" />
             </span>
-            <div className="leading-tight">
+            <div className="hidden leading-tight sm:block">
               <p className="text-base font-bold text-slate-900 transition group-hover:text-cyan-700 dark:text-white dark:group-hover:text-cyan-300">
                 Sai Jyothi
               </p>
@@ -73,113 +78,7 @@ export const Navbar: React.FC = () => {
             </div>
           </Link>
 
-          <div className="hidden flex-1 items-center justify-end gap-1 lg:gap-2 md:flex">
-            <Link to="/" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/')}>
-              {t('navbar.home')}
-            </Link>
-            <Link to="/books" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/books')}>
-              {t('navbar.books')}
-            </Link>
-            <Link to="/customer-support" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/customer-support')}>
-              {customerSupportLabel}
-            </Link>
-            <Link to="/events" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/events')}>
-              {eventsLabel}
-            </Link>
-            {user?.role === 'ROLE_ADMIN' && (
-              <Link to="/admin" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/admin')}>
-                {t('navbar.admin')}
-              </Link>
-            )}
-            {user && (
-              <Link to="/orders" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300 lg:px-4" onClick={() => handleNavLinkClick('/orders')}>
-                {t('navbar.orders')}
-              </Link>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setIsDesktopSearchOpen((current) => !current)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-400"
-              aria-label={t('navbar.searchAria')}
-            >
-              <Search className="h-4 w-4" />
-            </button>
-
-            <div className="inline-flex items-center rounded-full border border-white/45 bg-white/45 p-1 backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
-              <button
-                type="button"
-                onClick={() => setLanguage('en')}
-                className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
-                  language === 'en'
-                    ? 'bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-950'
-                    : 'text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-cyan-300'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                onClick={() => setLanguage('hi')}
-                className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
-                  language === 'hi'
-                    ? 'bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-950'
-                    : 'text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-cyan-300'
-                }`}
-              >
-                हिंदी
-              </button>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setTheme(isDark ? 'light' : 'dark')}
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/45 bg-white/45 px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-cyan-400/50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:border-cyan-400 dark:hover:text-cyan-300"
-              aria-label={t('navbar.themeAria')}
-            >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              <span>{isDark ? t('navbar.toggleLight') : t('navbar.toggleDark')}</span>
-            </button>
-
-            {user ? (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/profile"
-                  onClick={() => handleNavLinkClick('/profile')}
-                  className="max-w-[120px] rounded-full border border-cyan-300/40 bg-cyan-100/80 px-3 py-1.5 text-sm font-medium text-cyan-800 transition hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-400/40 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:bg-cyan-500/15 lg:max-w-[140px]"
-                >
-                  <span className="block truncate">{t('navbar.hiUser')}, {user.name}</span>
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="rounded-full border border-transparent px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300"
-                >
-                  {t('navbar.logout')}
-                </button>
-              </div>
-            ) : (
-              <Link to="/login" className="inline-flex items-center rounded-full border border-transparent px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/login')}>
-                <User className="mr-1.5 h-4 w-4" />
-                {t('navbar.login')}
-              </Link>
-            )}
-
-            <Link
-              to="/cart"
-              onClick={() => handleNavLinkClick('/cart')}
-              className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:bg-cyan-400"
-              aria-label={t('navbar.cartAria')}
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-xs font-bold text-white">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => setTheme(isDark ? 'light' : 'dark')}
@@ -195,6 +94,141 @@ export const Navbar: React.FC = () => {
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
+          </div>
+        </div>
+
+        <div className="hidden py-3 xl:block">
+          <div className="flex items-center justify-between gap-4">
+            <Link to="/" className="group flex flex-shrink-0 items-center gap-3" onClick={() => handleNavLinkClick('/')}>
+              <span className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/40 bg-white/40 shadow-lg shadow-cyan-500/20 backdrop-blur dark:border-slate-700 dark:bg-slate-900/60">
+                <img src={logoUrl} alt="SJP logo" className="h-full w-full object-cover" />
+              </span>
+              <div className="leading-tight">
+                <p className="text-base font-bold text-slate-900 transition group-hover:text-cyan-700 dark:text-white dark:group-hover:text-cyan-300">
+                  Sai Jyothi
+                </p>
+                <p className="text-xs uppercase tracking-[0.14em] text-slate-600 dark:text-slate-300">
+                  {t('navbar.publication')}
+                </p>
+              </div>
+            </Link>
+
+            <div className="flex flex-wrap items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setIsDesktopSearchOpen((current) => !current)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-400"
+                aria-label={t('navbar.searchAria')}
+              >
+                <Search className="h-4 w-4" />
+              </button>
+
+              <div className="inline-flex items-center rounded-full border border-white/45 bg-white/45 p-1 backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
+                <button
+                  type="button"
+                  onClick={() => setLanguage('en')}
+                  className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
+                    language === 'en'
+                      ? 'bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-950'
+                      : 'text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-cyan-300'
+                  }`}
+                >
+                  {englishLabel}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage('hi')}
+                  className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
+                    language === 'hi'
+                      ? 'bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-950'
+                      : 'text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-cyan-300'
+                  }`}
+                >
+                  {hindiLabel}
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/45 bg-white/45 px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-cyan-400/50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:border-cyan-400 dark:hover:text-cyan-300"
+                aria-label={t('navbar.themeAria')}
+              >
+                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                <span>{isDark ? t('navbar.toggleLight') : t('navbar.toggleDark')}</span>
+              </button>
+
+              {user ? (
+                <>
+                  <Link
+                    to="/profile"
+                    onClick={() => handleNavLinkClick('/profile')}
+                    className="max-w-[156px] rounded-full border border-cyan-300/40 bg-cyan-100/80 px-3 py-1.5 text-sm font-medium text-cyan-800 transition hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-400/40 dark:bg-cyan-500/10 dark:text-cyan-300 dark:hover:bg-cyan-500/15"
+                  >
+                    <span className="block truncate">{t('navbar.hiUser')}, {user.name}</span>
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="whitespace-nowrap rounded-full border border-transparent px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300"
+                  >
+                    {t('navbar.logout')}
+                  </button>
+                </>
+              ) : (
+                <Link to="/login" className="inline-flex items-center whitespace-nowrap rounded-full border border-transparent px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/login')}>
+                  <User className="mr-1.5 h-4 w-4" />
+                  {t('navbar.login')}
+                </Link>
+              )}
+
+              <Link
+                to="/cart"
+                onClick={() => handleNavLinkClick('/cart')}
+                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:bg-cyan-400"
+                aria-label={t('navbar.cartAria')}
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-xs font-bold text-white">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-white/10 pt-3">
+            <Link to="/" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/')}>
+              {t('navbar.home')}
+            </Link>
+            <Link to="/books" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/books')}>
+              {t('navbar.books')}
+            </Link>
+            <Link to="/customer-support" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/customer-support')}>
+              {customerSupportLabel}
+            </Link>
+            <Link to="/events" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/events')}>
+              {eventsLabel}
+            </Link>
+            <Link to="/feedback" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/feedback')}>
+              {feedbackLabel}
+            </Link>
+            <Link to="/catalogues" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/catalogues')}>
+              {cataloguesLabel}
+            </Link>
+            <Link to="/distributors" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/distributors')}>
+              {distributorsLabel}
+            </Link>
+            {user?.role === 'ROLE_ADMIN' && (
+              <Link to="/admin" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/admin')}>
+                {t('navbar.admin')}
+              </Link>
+            )}
+            {user && (
+              <Link to="/orders" className="rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-slate-800 transition hover:border-white/40 hover:bg-white/40 hover:text-cyan-700 dark:text-slate-100 dark:hover:border-slate-700 dark:hover:bg-slate-800/70 dark:hover:text-cyan-300" onClick={() => handleNavLinkClick('/orders')}>
+                {t('navbar.orders')}
+              </Link>
+            )}
           </div>
         </div>
 
@@ -255,7 +289,7 @@ export const Navbar: React.FC = () => {
                       : 'text-slate-700 dark:text-slate-200'
                   }`}
                 >
-                  EN
+                  {englishLabel}
                 </button>
                 <button
                   type="button"
@@ -266,7 +300,7 @@ export const Navbar: React.FC = () => {
                       : 'text-slate-700 dark:text-slate-200'
                   }`}
                 >
-                  हिंदी
+                  {hindiLabel}
                 </button>
               </div>
             </div>
@@ -283,6 +317,15 @@ export const Navbar: React.FC = () => {
               </Link>
               <Link to="/events" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/events')}>
                 {eventsLabel}
+              </Link>
+              <Link to="/feedback" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/feedback')}>
+                {feedbackLabel}
+              </Link>
+              <Link to="/catalogues" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/catalogues')}>
+                {cataloguesLabel}
+              </Link>
+              <Link to="/distributors" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/distributors')}>
+                {distributorsLabel}
               </Link>
               {user?.role === 'ROLE_ADMIN' && (
                 <Link to="/admin" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-800 hover:bg-white/50 dark:text-slate-100 dark:hover:bg-slate-800" onClick={() => handleNavLinkClick('/admin')}>

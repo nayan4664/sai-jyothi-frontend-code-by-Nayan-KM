@@ -135,6 +135,8 @@ const translations = {
       admin: 'एडमिन',
       home: 'होम',
       books: 'पुस्तकें',
+      customerSupport: 'ग्राहक सहायता',
+      events: 'इवेंट्स',
       orders: 'ऑर्डर',
       login: 'लॉगिन',
       logout: 'लॉगआउट',
@@ -153,7 +155,7 @@ const translations = {
     common: {
       add: 'जोड़ें',
       by: 'लेखक',
-      addedToCart: 'कार्ट में जोड़ी गई!',
+      addedToCart: 'कार्ट में जोड़ दी गई!',
       addToCart: 'कार्ट में जोड़ें',
       buyNow: 'अभी खरीदें',
       back: 'वापस',
@@ -193,6 +195,9 @@ const translations = {
       Business: 'बिजनेस',
       Spirituality: 'आध्यात्मिक',
       Comics: 'कॉमिक्स',
+      College: 'कॉलेज',
+      School: 'स्कूल',
+      Competitive: 'कम्पटीटिव',
     },
     orderStatus: {
       PLACED: 'ऑर्डर किया गया',

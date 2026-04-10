@@ -15,6 +15,21 @@ export interface CustomerInfo {
   paymentMethod: string;
 }
 
+export interface TrackingMilestone {
+  label: string;
+  description: string;
+  completed: boolean;
+}
+
+export interface TrackingInfo {
+  trackingCode: string;
+  currentLabel: string;
+  estimatedDeliveryText: string;
+  carrier: string;
+  trackingAddress: string;
+  milestones: TrackingMilestone[];
+}
+
 export interface OrderDetails {
   id?: number;
   items: CartLineItem[];
@@ -24,6 +39,7 @@ export interface OrderDetails {
   orderDate: string;
   orderId: string;
   status?: string;
+  tracking?: TrackingInfo;
 }
 
 export const isOrderDetails = (value: unknown): value is OrderDetails => {

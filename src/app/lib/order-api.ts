@@ -64,6 +64,18 @@ interface BackendOrder {
   orderDate: string;
   customerInfo: CheckoutPayload;
   items: BackendOrderItem[];
+  tracking?: {
+    trackingCode: string;
+    currentLabel: string;
+    estimatedDeliveryText: string;
+    carrier: string;
+    trackingAddress: string;
+    milestones: Array<{
+      label: string;
+      description: string;
+      completed: boolean;
+    }>;
+  };
 }
 
 const mapOrder = (order: BackendOrder): OrderDetails => ({
@@ -89,6 +101,7 @@ const mapOrder = (order: BackendOrder): OrderDetails => ({
     publisher: '',
     language: '',
   })),
+  tracking: order.tracking,
 });
 
 export const orderApi = {
@@ -112,5 +125,16 @@ export const orderApi = {
 
     const orders = await parseJson<BackendOrder[]>(response);
     return orders.map(mapOrder);
+  },
+
+  async getOrder(token: string, orderId: number): Promise<OrderDetails> {
+    const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const order = await parseJson<BackendOrder>(response);
+    return mapOrder(order);
   },
 };

@@ -98,6 +98,9 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/books?category=Academic" className="transition hover:text-cyan-200">{categoryLabel('Academic')}</Link>
               </li>
+              <li>
+                <Link to="/catalogues" className="transition hover:text-cyan-200">Catalogues</Link>
+              </li>
             </ul>
           </div>
 
@@ -109,6 +112,12 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/events" className="transition hover:text-cyan-200">Events</Link>
+              </li>
+              <li>
+                <Link to="/feedback" className="transition hover:text-cyan-200">Feedback</Link>
+              </li>
+              <li>
+                <Link to="/distributors" className="transition hover:text-cyan-200">Distributors</Link>
               </li>
               <li>
                 <Link to="/about" className="transition hover:text-cyan-200">{t('footer.aboutUs')}</Link>

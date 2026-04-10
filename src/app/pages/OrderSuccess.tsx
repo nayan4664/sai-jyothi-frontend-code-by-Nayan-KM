@@ -26,22 +26,22 @@ export const OrderSuccess: React.FC = () => {
   const copy =
     language === 'hi'
       ? {
-          happyAlert: 'खुशी की सूचना',
-          confirmed: 'ऑर्डर सफलतापूर्वक कन्फर्म हो गया!',
-          preparing: 'आपका ऑर्डर प्राप्त हो गया है। हम डिलीवरी की तैयारी कर रहे हैं।',
-          placed: 'ऑर्डर सफलतापूर्वक किया गया!',
-          thanks: 'आपके ऑर्डर के लिए धन्यवाद। हम इसे जल्द प्रोसेस करेंगे।',
-          orderDetails: 'ऑर्डर विवरण',
-          orderId: 'ऑर्डर आईडी',
-          date: 'तारीख',
-          deliveryInfo: 'डिलीवरी जानकारी',
-          orderedItems: 'ऑर्डर किए गए आइटम',
-          quantity: 'मात्रा',
-          subtotal: 'उप-योग',
-          totalPaid: 'कुल भुगतान',
-          estimatedDelivery: 'अनुमानित डिलीवरी',
-          eta: 'आपका ऑर्डर 5-7 कार्यदिवस में डिलीवर होगा। ट्रैकिंग जानकारी ईमेल से भेजी जाएगी।',
-          needHelp: 'ऑर्डर में मदद चाहिए?',
+          happyAlert: 'à¤–à¥à¤¶à¥€ à¤•à¥€ à¤¸à¥‚à¤šà¤¨à¤¾',
+          confirmed: 'à¤‘à¤°à¥à¤¡à¤° à¤¸à¤«à¤²à¤¤à¤¾à¤ªà¥‚à¤°à¥à¤µà¤• à¤•à¤¨à¥à¤«à¤°à¥à¤® à¤¹à¥‹ à¤—à¤¯à¤¾!',
+          preparing: 'à¤†à¤ªà¤•à¤¾ à¤‘à¤°à¥à¤¡à¤° à¤ªà¥à¤°à¤¾à¤ªà¥à¤¤ à¤¹à¥‹ à¤—à¤¯à¤¾ à¤¹à¥ˆà¥¤ à¤¹à¤® à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤•à¥€ à¤¤à¥ˆà¤¯à¤¾à¤°à¥€ à¤•à¤° à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚à¥¤',
+          placed: 'à¤‘à¤°à¥à¤¡à¤° à¤¸à¤«à¤²à¤¤à¤¾à¤ªà¥‚à¤°à¥à¤µà¤• à¤•à¤¿à¤¯à¤¾ à¤—à¤¯à¤¾!',
+          thanks: 'à¤†à¤ªà¤•à¥‡ à¤‘à¤°à¥à¤¡à¤° à¤•à¥‡ à¤²à¤¿à¤ à¤§à¤¨à¥à¤¯à¤µà¤¾à¤¦à¥¤ à¤¹à¤® à¤‡à¤¸à¥‡ à¤œà¤²à¥à¤¦ à¤ªà¥à¤°à¥‹à¤¸à¥‡à¤¸ à¤•à¤°à¥‡à¤‚à¤—à¥‡à¥¤',
+          orderDetails: 'à¤‘à¤°à¥à¤¡à¤° à¤µà¤¿à¤µà¤°à¤£',
+          orderId: 'à¤‘à¤°à¥à¤¡à¤° à¤†à¤ˆà¤¡à¥€',
+          date: 'à¤¤à¤¾à¤°à¥€à¤–',
+          deliveryInfo: 'à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€',
+          orderedItems: 'à¤‘à¤°à¥à¤¡à¤° à¤•à¤¿à¤ à¤—à¤ à¤†à¤‡à¤Ÿà¤®',
+          quantity: 'à¤®à¤¾à¤¤à¥à¤°à¤¾',
+          subtotal: 'à¤‰à¤ª-à¤¯à¥‹à¤—',
+          totalPaid: 'à¤•à¥à¤² à¤­à¥à¤—à¤¤à¤¾à¤¨',
+          estimatedDelivery: 'à¤…à¤¨à¥à¤®à¤¾à¤¨à¤¿à¤¤ à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€',
+          eta: 'à¤†à¤ªà¤•à¤¾ à¤‘à¤°à¥à¤¡à¤° 5-7 à¤•à¤¾à¤°à¥à¤¯à¤¦à¤¿à¤µà¤¸ à¤®à¥‡à¤‚ à¤¡à¤¿à¤²à¥€à¤µà¤° à¤¹à¥‹à¤—à¤¾à¥¤ à¤Ÿà¥à¤°à¥ˆà¤•à¤¿à¤‚à¤— à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€ à¤ˆà¤®à¥‡à¤² à¤¸à¥‡ à¤­à¥‡à¤œà¥€ à¤œà¤¾à¤à¤—à¥€à¥¤',
+          needHelp: 'à¤‘à¤°à¥à¤¡à¤° à¤®à¥‡à¤‚ à¤®à¤¦à¤¦ à¤šà¤¾à¤¹à¤¿à¤?',
         }
       : {
           happyAlert: 'Happy Alert',
@@ -110,7 +110,7 @@ export const OrderSuccess: React.FC = () => {
         ))}
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6 overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 p-[1px] shadow-2xl shadow-emerald-200/70">
           <div className="relative rounded-[calc(1.5rem-1px)] bg-white/95 px-6 py-5 backdrop-blur">
             <div className="pointer-events-none absolute inset-0 opacity-70">
@@ -133,35 +133,38 @@ export const OrderSuccess: React.FC = () => {
           </div>
         </div>
 
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-green-100 rounded-full mb-4 animate-bounce shadow-lg shadow-green-200">
+        <div className="mb-8 text-center">
+          <div className="mb-4 inline-flex h-24 w-24 items-center justify-center rounded-full bg-green-100 shadow-lg shadow-green-200 animate-bounce">
             <CheckCircle className="h-16 w-16 text-green-600" />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">{copy.placed}</h1>
+          <h1 className="mb-2 text-4xl font-bold text-gray-900">{copy.placed}</h1>
           <p className="text-lg text-gray-600">{copy.thanks}</p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 mb-6 border border-white/70">
-          <div className="border-b pb-4 mb-6">
-            <div className="flex items-center justify-between mb-2">
+        <div className="mb-6 rounded-3xl border border-white/70 bg-white p-8 shadow-xl">
+          <div className="mb-6 border-b pb-4">
+            <div className="mb-2 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">{copy.orderDetails}</h2>
-              <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+              <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
                 {orderStatusLabel(orderDetails.status ?? 'PLACED')}
               </span>
             </div>
             <div className="text-gray-600">
               <p><strong>{copy.orderId}:</strong> {orderDetails.orderId}</p>
-              <p><strong>{copy.date}:</strong> {orderDate.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+              <p>
+                <strong>{copy.date}:</strong>{' '}
+                {orderDate.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })}
+              </p>
             </div>
           </div>
 
           <div className="mb-6">
-            <h3 className="font-bold text-gray-900 mb-3">{copy.deliveryInfo}</h3>
-            <div className="bg-gray-50 rounded-lg p-4">
+            <h3 className="mb-3 font-bold text-gray-900">{copy.deliveryInfo}</h3>
+            <div className="rounded-lg bg-gray-50 p-4">
               <p className="font-semibold">{orderDetails.customerInfo.fullName}</p>
               <p className="text-gray-600">{orderDetails.customerInfo.email}</p>
               <p className="text-gray-600">{orderDetails.customerInfo.phone}</p>
-              <p className="text-gray-600 mt-2">
+              <p className="mt-2 text-gray-600">
                 {orderDetails.customerInfo.address}, {orderDetails.customerInfo.city}
                 <br />
                 {orderDetails.customerInfo.state} - {orderDetails.customerInfo.pincode}
@@ -170,18 +173,20 @@ export const OrderSuccess: React.FC = () => {
           </div>
 
           <div className="mb-6">
-            <h3 className="font-bold text-gray-900 mb-3">{copy.orderedItems}</h3>
+            <h3 className="mb-3 font-bold text-gray-900">{copy.orderedItems}</h3>
             <div className="space-y-3">
               {orderDetails.items.map((item: CartLineItem) => (
-                <div key={item.id} className="flex items-center gap-4 bg-gray-50 rounded-lg p-4">
-                  <img src={item.image} alt={item.title} className="w-16 h-24 object-cover rounded" />
+                <div key={item.id} className="flex items-center gap-4 rounded-lg bg-gray-50 p-4">
+                  <img src={item.image} alt={item.title} className="h-24 w-16 rounded object-cover" />
                   <div className="flex-1">
                     <h4 className="font-semibold text-gray-900">{item.title}</h4>
-                    <p className="text-sm text-gray-600">{t('common.by')} {item.author}</p>
+                    <p className="text-sm text-gray-600">
+                      {t('common.by')} {item.author}
+                    </p>
                     <p className="text-sm text-gray-600">{copy.quantity}: {item.quantity}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-900">₹{item.price * item.quantity}</p>
+                    <p className="font-bold text-gray-900">₹{(item.price * item.quantity).toFixed(2)}</p>
                   </div>
                 </div>
               ))}
@@ -189,48 +194,77 @@ export const OrderSuccess: React.FC = () => {
           </div>
 
           <div className="border-t pt-4">
-            <div className="space-y-2 mb-4">
+            <div className="mb-4 space-y-2">
               <div className="flex justify-between text-gray-700">
                 <span>{copy.subtotal}</span>
-                <span>₹{orderDetails.total - orderDetails.shippingCost}</span>
+                <span>₹{(orderDetails.total - orderDetails.shippingCost).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-gray-700">
                 <span>{t('common.shipping')}</span>
                 <span className={orderDetails.shippingCost === 0 ? 'text-green-600' : ''}>
-                  {orderDetails.shippingCost === 0 ? t('common.free') : `₹${orderDetails.shippingCost}`}
+                  {orderDetails.shippingCost === 0 ? t('common.free') : `₹${orderDetails.shippingCost.toFixed(2)}`}
                 </span>
               </div>
-              <div className="flex justify-between text-xl font-bold text-gray-900 pt-2 border-t">
+              <div className="flex justify-between border-t pt-2 text-xl font-bold text-gray-900">
                 <span>{copy.totalPaid}</span>
-                <span>₹{orderDetails.total}</span>
+                <span>₹{orderDetails.total.toFixed(2)}</span>
               </div>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
               <div className="flex items-start">
-                <Package className="h-6 w-6 text-blue-600 mr-3 flex-shrink-0 mt-0.5" />
+                <Package className="mr-3 mt-0.5 h-6 w-6 flex-shrink-0 text-blue-600" />
                 <div>
                   <p className="font-semibold text-blue-900">{copy.estimatedDelivery}</p>
-                  <p className="text-sm text-blue-700">{copy.eta}</p>
+                  <p className="text-sm text-blue-700">{orderDetails.tracking?.estimatedDeliveryText ?? copy.eta}</p>
                 </div>
               </div>
             </div>
+
+            {orderDetails.tracking && (
+              <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+                <p className="font-semibold text-slate-900">Tracking Code: {orderDetails.tracking.trackingCode}</p>
+                <p className="mt-1 text-sm text-slate-600">Carrier: {orderDetails.tracking.carrier}</p>
+                <p className="mt-1 text-sm text-slate-600">Tracking address: {orderDetails.tracking.trackingAddress}</p>
+                <div className="mt-4 space-y-2">
+                  {orderDetails.tracking.milestones.map((milestone) => (
+                    <div key={milestone.label} className="flex items-start gap-2 text-sm">
+                      <span
+                        className={`mt-1 h-2.5 w-2.5 rounded-full ${
+                          milestone.completed ? 'bg-emerald-500' : 'bg-slate-300'
+                        }`}
+                      />
+                      <div>
+                        <p className="font-medium text-slate-900">{milestone.label}</p>
+                        <p className="text-slate-600">{milestone.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link
             to="/"
-            className="flex items-center justify-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            className="flex items-center justify-center rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700"
           >
-            <Home className="h-5 w-5 mr-2" />
+            <Home className="mr-2 h-5 w-5" />
             {t('common.home')}
           </Link>
           <Link
             to="/books"
-            className="flex items-center justify-center bg-white border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+            className="flex items-center justify-center rounded-lg border-2 border-blue-600 bg-white px-8 py-3 font-semibold text-blue-600 transition hover:bg-blue-50"
           >
             {t('common.continueShopping')}
+          </Link>
+          <Link
+            to="/orders"
+            className="flex items-center justify-center rounded-lg border border-slate-300 bg-slate-50 px-8 py-3 font-semibold text-slate-700 transition hover:bg-slate-100"
+          >
+            View Tracking
           </Link>
         </div>
 

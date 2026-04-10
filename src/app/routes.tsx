@@ -17,6 +17,9 @@ import { AdminDashboard } from './pages/AdminDashboard';
 import { Profile } from './pages/Profile';
 import { CustomerSupport } from './pages/CustomerSupport';
 import { Events } from './pages/Events';
+import { Catalogues } from './pages/Catalogues';
+import { Distributors } from './pages/Distributors';
+import { Feedback } from './pages/Feedback';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -34,6 +37,9 @@ export const router = createBrowserRouter([
   { path: '/books', element: <Layout><Books /></Layout> },
   { path: '/customer-support', element: <Layout><CustomerSupport /></Layout> },
   { path: '/events', element: <Layout><Events /></Layout> },
+  { path: '/feedback', element: <Layout><Feedback /></Layout> },
+  { path: '/catalogues', element: <Layout><Catalogues /></Layout> },
+  { path: '/distributors', element: <Layout><Distributors /></Layout> },
   { path: '/book/:id', element: <Layout><BookDetail /></Layout> },
   { path: '/cart', element: <Layout><Cart /></Layout> },
   {
